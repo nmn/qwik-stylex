@@ -93,12 +93,15 @@ export default function styleXVitePlugin({
     configureServer(_server) {
       server = _server;
       server.middlewares.use((req, res, next) => {
-        console.log("MIDDLEWARE", req.originalUrl);
+        // console.log("MIDDLEWARE", req.originalUrl);
         // maybe better way to do this?
         if (/virtual:stylex\.css/.test(req.originalUrl)) {
           res.setHeader("Content-Type", "text/css");
           const stylexBundle = compileStyleX();
-          console.log("SERVE", { stylexBundle });
+          console.log("SERVE Stylex bundle");
+          console.log("====================");
+          console.log(stylexBundle);
+          console.log("====================");
           res.end(stylexBundle);
           return;
         }
@@ -113,20 +116,12 @@ export default function styleXVitePlugin({
     },
 
     load(id) {
-      if (id.endsWith(".css")) {
-        console.log("LOAD", id, {
-          RESOLVED_STYLEX_MODULE_ID,
-          VIRTUAL_STYLEX_MODULE_ID,
-        });
-      }
       if (
         id === RESOLVED_STYLEX_MODULE_ID ||
         id === VIRTUAL_STYLEX_MODULE_ID ||
         id.endsWith("stylex.css")
       ) {
-        const stylexBundle = compileStyleX();
-        console.log("LOAD", { stylexBundle });
-        return stylexBundle;
+        return compileStyleX();
       }
     },
 
