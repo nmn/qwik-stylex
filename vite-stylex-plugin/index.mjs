@@ -92,6 +92,18 @@ export default function styleXVitePlugin({
 
     configureServer(_server) {
       server = _server;
+      server.middlewares.use((req, res, next) => {
+        console.log("MIDDLEWARE", req.originalUrl);
+        // maybe better way to do this?
+        if (/virtual:stylex\.css/.test(req.originalUrl)) {
+          res.setHeader("Content-Type", "text/css");
+          const stylexBundle = compileStyleX();
+          console.log("SERVE", { stylexBundle });
+          res.end(stylexBundle);
+          return;
+        }
+        next();
+      });
     },
 
     resolveId(id) {
