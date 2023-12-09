@@ -1,11 +1,10 @@
 import { component$ } from "@builder.io/qwik";
 
-
 import stylex from "@stylexjs/stylex";
 
 const s = stylex.create({
   h1: {
-    color: "red",
+    color: "yellow",
     fontStyle: "italic",
   },
 });

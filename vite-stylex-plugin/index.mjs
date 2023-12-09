@@ -101,8 +101,20 @@ export default function styleXVitePlugin({
     },
 
     load(id) {
-      if (id === RESOLVED_STYLEX_MODULE_ID) {
-        return compileStyleX();
+      if (id.endsWith(".css")) {
+        console.log("LOAD", id, {
+          RESOLVED_STYLEX_MODULE_ID,
+          VIRTUAL_STYLEX_MODULE_ID,
+        });
+      }
+      if (
+        id === RESOLVED_STYLEX_MODULE_ID ||
+        id === VIRTUAL_STYLEX_MODULE_ID ||
+        id.endsWith("stylex.css")
+      ) {
+        const stylexBundle = compileStyleX();
+        console.log("LOAD", { stylexBundle });
+        return stylexBundle;
       }
     },
 
@@ -208,6 +220,14 @@ export default function styleXVitePlugin({
           attrs: {
             rel: "stylesheet",
             href: publicPath,
+          },
+          injectTo: "head",
+        },
+        {
+          tag: "link",
+          attrs: {
+            rel: "stylesheet",
+            href: "virtual:stylex.css",
           },
           injectTo: "head",
         },
