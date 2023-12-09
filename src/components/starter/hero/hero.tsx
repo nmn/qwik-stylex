@@ -1,12 +1,19 @@
 import { component$ } from "@builder.io/qwik";
 import styles from "./hero.module.css";
 import ImgThunder from "~/media/thunder.png?jsx";
+import stylex from "@stylexjs/stylex";
+
+const s = stylex.create({
+  h1: {
+    color: "red",
+  },
+});
 
 export default component$(() => {
   return (
     <div class={["container", styles.hero]}>
       <ImgThunder class={styles["hero-image"]} />
-      <h1>
+      <h1 class={stylex(s.h1)}>
         So <span class="highlight">fantastic</span>
         <br />
         to have <span class="highlight">you</span> here
