@@ -5,9 +5,8 @@ import stylex from "@stylexjs/stylex";
 
 const s = stylex.create({
   h1: {
-    // HACK: This Vite plugin doesn't support using the polyfill for `@layer`.
-    // So this is a temporary workaround.
-    color: "red !important",
+    color: "red",
+    fontStyle: "italic",
   },
 });
 
