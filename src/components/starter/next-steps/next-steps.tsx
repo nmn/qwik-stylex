@@ -1,5 +1,8 @@
 import { component$, $, useOnWindow, useSignal } from "@builder.io/qwik";
-import styles from "./next-steps.module.css";
+import spread from "~/utils/spread";
+import { create, props } from "@stylexjs/stylex";
+import { button, container, heading } from "~/commonStyles";
+import { colors } from "../../../vars.stylex";
 
 export const GETTING_STARTED_STEPS = [
   {
@@ -39,38 +42,50 @@ export default component$(() => {
       if ((e as KeyboardEvent).key === "Alt") {
         gettingStartedStep.value = 1;
       }
-    }),
+    })
   );
 
   return (
-    <div class="container container-purple container-center">
+    <div
+      {...spread(
+        props(
+          container.base,
+          container.purple,
+          container.center,
+          styles.container
+        )
+      )}
+    >
       <h2>
         Time for a
         <br />
-        <span class="highlight">qwik intro</span>?
+        <span {...spread(props(heading.bold))}>qwik intro</span>?
       </h2>
-      <div class={styles.gettingstarted}>
+      <div {...spread(props(styles.gettingstarted))}>
         <div
-          class={styles.intro}
+          {...spread(props(styles.intro))}
           dangerouslySetInnerHTML={
             GETTING_STARTED_STEPS[gettingStartedStep.value].message
           }
         />
         <span
-          class={styles.hint}
+          {...spread(props(styles.hint))}
           dangerouslySetInnerHTML={
             GETTING_STARTED_STEPS[gettingStartedStep.value].hint
           }
         />
       </div>
       {gettingStartedStep.value + 1 < GETTING_STARTED_STEPS.length ? (
-        <button class="button-dark" onClick$={() => gettingStartedStep.value++}>
+        <button
+          {...spread(props(button.base, button.dark))}
+          onClick$={() => gettingStartedStep.value++}
+        >
           Continue with Step {gettingStartedStep.value + 2} of{" "}
           {GETTING_STARTED_STEPS.length}
         </button>
       ) : (
         <button
-          class="button-dark"
+          {...spread(props(button.base, button.dark))}
           onClick$={() => (gettingStartedStep.value = 0)}
         >
           Re-Start
@@ -78,4 +93,34 @@ export default component$(() => {
       )}
     </div>
   );
+});
+
+const DESKTOP = "@media screen and (min-width: 768px)";
+
+const styles = create({
+  container: {
+    backgroundColor: colors.lightPurple,
+  },
+  gettingstarted: {
+    display: "flex",
+    color: "white",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    height: { default: 380, [DESKTOP]: 280 },
+    gap: 10,
+    maxWidth: 600,
+    marginInline: "auto",
+  },
+  intro: {
+    fontSize: { default: "1rem", [DESKTOP]: "1.2rem" },
+    width: "100%",
+    wordBreak: "break-word",
+  },
+  hint: {
+    fontSize: { default: "0.8rem", [DESKTOP]: "1rem" },
+  },
+  hintLink: {
+    color: colors.darkPurple,
+  },
 });

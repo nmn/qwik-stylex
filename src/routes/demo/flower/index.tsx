@@ -2,14 +2,18 @@ import {
   component$,
   useVisibleTask$,
   useStore,
-  useStylesScoped$,
+  useSignal,
 } from "@builder.io/qwik";
 import { type DocumentHead, useLocation } from "@builder.io/qwik-city";
-import styles from "./flower.css?inline";
+import spread from "~/utils/spread";
+import { create, props } from "@stylexjs/stylex";
+import { container, ellipsis } from "~/commonStyles";
+import { colors } from "../../../vars.stylex";
 
 export default component$(() => {
-  useStylesScoped$(styles);
-  const loc = useLocation();
+  const isPride = useSignal(
+    useLocation().url.searchParams.get("pride") === "true"
+  );
 
   const state = useStore({
     count: 0,
@@ -26,14 +30,27 @@ export default component$(() => {
   });
 
   return (
-    <div class="container container-center">
-      <div role="presentation" class="ellipsis"></div>
-      <h1>
-        <span class="highlight">Generate</span> Flowers
+    <div {...spread(props(container.base, container.center))}>
+      <div {...spread(props(ellipsis.base))} role="presentation"></div>
+      <h1 {...spread(props(styles.h1))}>
+        <span {...spread(props(styles.highlight))}>Generate</span> Flowers
       </h1>
 
+      <label {...spread(props(styles.label))}>
+        <input
+          {...spread(props(styles.checkbox))}
+          type="checkbox"
+          checked={isPride.value}
+          onChange$={(e) => {
+            isPride.value =
+              (e.target as undefined | HTMLInputElement)?.checked ?? false;
+          }}
+        />
+        Rainbow
+      </label>
+
       <input
-        class="input"
+        {...spread(props(styles.input))}
         type="range"
         value={state.number}
         max={50}
@@ -41,23 +58,16 @@ export default component$(() => {
           state.number = (ev.target as HTMLInputElement).valueAsNumber;
         }}
       />
-      <div
-        style={{
-          "--state": `${state.count * 0.1}`,
-        }}
-        class={{
-          host: true,
-          pride: loc.url.searchParams.get("pride") === "true",
-        }}
-      >
+      <div {...spread(props(styles.host))}>
         {Array.from({ length: state.number }, (_, i) => (
           <div
             key={i}
-            class={{
-              square: true,
-              odd: i % 2 === 0,
-            }}
-            style={{ "--index": `${i + 1}` }}
+            {...spread(
+              props(
+                styles.square(i, state.count),
+                isPride.value && styles.pride(i)
+              )
+            )}
           />
         )).reverse()}
       </div>
@@ -68,3 +78,87 @@ export default component$(() => {
 export const head: DocumentHead = {
   title: "Qwik Flower",
 };
+
+const ROTATION = "225deg";
+const SIZE_STEP = "10px";
+const ODD_COLOR_STEP = 5;
+const CENTER = 12;
+
+const styles = create({
+  input: {
+    width: "60%",
+  },
+  h1: {
+    marginBottom: 60,
+  },
+  highlight: {
+    color: colors.lightBlue,
+  },
+  label: {
+    display: "flex",
+    justifyContent: "center",
+    marginTop: -32,
+    marginBottom: 32,
+    fontSize: "1.5rem",
+    gap: ".25em",
+    cursor: "pointer",
+  },
+  checkbox: {
+    width: "2em",
+    height: "2em",
+  },
+
+  host: {
+    display: "grid",
+    alignItems: "center",
+    justifyContent: "center",
+    justifyItems: "center",
+    width: "100%",
+    height: 500,
+    contain: "strict",
+  },
+
+  square: (index: number, state: number) => ({
+    display: "block",
+    width: `calc(40px + ${index + 1} * ${SIZE_STEP})`,
+    height: `calc(40px + ${index + 1} * ${SIZE_STEP})`,
+    transform: `rotateZ(calc(${ROTATION} * ${state * 0.1} * (${CENTER} - ${
+      index + 1
+    })))`,
+    transitionProperty: "transform, border-color",
+    transitionDuration: "5s",
+    transitionTimingFunction: "ease-in-out",
+    gridArea: "1 / 1",
+    backgroundColor: {
+      default: "white",
+      ":nth-last-child(2n + 1)": `rgb(
+        calc(172 * (1 - ${(index + 1) * ODD_COLOR_STEP} / 256)),
+        calc(127 * (1 - ${(index + 1) * ODD_COLOR_STEP} / 256)),
+        calc(244 * (1 - ${(index + 1) * ODD_COLOR_STEP} / 256))
+      )`,
+    },
+    borderWidth: 2,
+    borderStyle: "solid",
+    borderColor: "black",
+    boxSizing: "border-box",
+    willChange: "transform, border-color",
+    contain: "strict",
+  }),
+
+  pride: (index: number) => ({
+    backgroundColor: {
+      default: "white",
+      ":nth-last-child(12n + 1)": `rgb(
+        calc(172 * (1 - ${(index + 1) * ODD_COLOR_STEP} / 256)),
+        calc(127 * (1 - ${(index + 1) * ODD_COLOR_STEP} / 256)),
+        calc(244 * (1 - ${(index + 1) * ODD_COLOR_STEP} / 256))
+      )`,
+      ":nth-child(12n + 1)": "#e70000",
+      ":nth-child(12n + 3)": "#ff8c00",
+      ":nth-child(12n + 5)": "#ffef00",
+      ":nth-child(12n + 7)": "#00811f",
+      ":nth-child(12n + 9)": "#0044ff",
+      ":nth-child(12n + 11)": "#760089",
+    },
+  }),
+});

@@ -63,7 +63,7 @@ export default function styleXVitePlugin({
     }
 
     // @ts-ignore
-    const stylexCSS = stylexBabelPlugin.processStylexRules(rules, false);
+    const stylexCSS = stylexBabelPlugin.processStylexRules(rules, true);
 
     lastStyleXCSS = {
       id: reloadCount,
@@ -98,10 +98,10 @@ export default function styleXVitePlugin({
         if (/virtual:stylex\.css/.test(req.originalUrl)) {
           res.setHeader("Content-Type", "text/css");
           const stylexBundle = compileStyleX();
-          console.log("SERVE Stylex bundle");
-          console.log("====================");
-          console.log(stylexBundle);
-          console.log("====================");
+          // console.log("SERVE Stylex bundle");
+          // console.log("====================");
+          // console.log(stylexBundle);
+          // console.log("====================");
           res.end(stylexBundle);
           return;
         }

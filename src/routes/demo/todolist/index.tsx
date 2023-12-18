@@ -7,7 +7,10 @@ import {
   z,
   Form,
 } from "@builder.io/qwik-city";
-import styles from "./todolist.module.css";
+import * as stylex from "@stylexjs/stylex";
+import { button, container, ellipsis } from "~/commonStyles";
+import spread from "~/utils/spread";
+import { colors } from "../../../vars.stylex";
 
 interface ListItem {
   text: string;
@@ -28,7 +31,7 @@ export const useAddToListAction = routeAction$(
   },
   zod$({
     text: z.string().trim().min(1),
-  }),
+  })
 );
 
 export default component$(() => {
@@ -37,35 +40,45 @@ export default component$(() => {
 
   return (
     <>
-      <div class="container container-center">
+      <div {...spread(stylex.props(container.base, container.center))}>
         <h1>
           <span class="highlight">TODO</span> List
         </h1>
       </div>
 
-      <div role="presentation" class="ellipsis"></div>
+      <div {...spread(stylex.props(ellipsis.base))} role="presentation"></div>
 
-      <div class="container container-center">
+      <div {...spread(stylex.props(container.base, container.center))}>
         {list.value.length === 0 ? (
-          <span class={styles.empty}>No items found</span>
+          <span {...spread(stylex.props(styles.empty))}>No items found</span>
         ) : (
-          <ul class={styles.list}>
+          <ul {...spread(stylex.props(styles.list))}>
             {list.value.map((item, index) => (
-              <li key={`items-${index}`}>{item.text}</li>
+              <li {...spread(stylex.props(styles.li))} key={`items-${index}`}>
+                {item.text}
+              </li>
             ))}
           </ul>
         )}
       </div>
 
-      <div class="container container-center">
+      <div {...spread(stylex.props(container.base, container.center))}>
         <Form action={action} spaReset>
-          <input type="text" name="text" required class={styles.input} />{" "}
-          <button type="submit" class="button-dark">
+          <input
+            {...spread(stylex.props(styles.input))}
+            type="text"
+            name="text"
+            required
+          />{" "}
+          <button
+            {...spread(stylex.props(button.base, button.dark))}
+            type="submit"
+          >
             Add item
           </button>
         </Form>
 
-        <p class={styles.hint}>
+        <p {...spread(stylex.props(styles.hint))}>
           PS: This little app works even when JavaScript is disabled.
         </p>
       </div>
@@ -76,3 +89,34 @@ export default component$(() => {
 export const head: DocumentHead = {
   title: "Qwik Todo List",
 };
+
+const DESKTOP = "@media screen and (min-width: 768px)";
+
+const styles = stylex.create({
+  list: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 20,
+    color: "white",
+  },
+  li: {
+    listStyle: "none",
+  },
+  empty: {
+    minHeight: 250,
+  },
+  input: {
+    backgroundColor: "white",
+    color: colors.lightBlue,
+    border: "none",
+    borderRadius: 8,
+    padding: { default: "15px 20px", [DESKTOP]: "23px 35px" },
+    marginRight: { default: 10, [DESKTOP]: 20 },
+    fontSize: { default: "0.8rem", [DESKTOP]: "1rem" },
+  },
+  hint: {
+    fontSize: "0.8rem",
+    color: "white",
+    marginTop: 30,
+  },
+});

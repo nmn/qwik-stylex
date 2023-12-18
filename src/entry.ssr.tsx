@@ -16,6 +16,7 @@ import {
 } from "@builder.io/qwik/server";
 import { manifest } from "@qwik-client-manifest";
 import Root from "./root";
+import stylex from "@stylexjs/stylex";
 
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
@@ -25,6 +26,19 @@ export default function (opts: RenderToStreamOptions) {
     containerAttributes: {
       lang: "en-us",
       ...opts.containerAttributes,
+      class: stylex(styles.html),
     },
   });
 }
+
+const styles = stylex.create({
+  html: {
+    lineHeight: 1,
+    webkitTextSizeAdjust: "100%",
+    mozTabSize: 4,
+    oTabSize: 4,
+    tabSize: 4,
+    fontFamily:
+      "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+  },
+});
