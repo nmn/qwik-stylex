@@ -39,7 +39,7 @@ export default component$(() => {
             </a>
           </li>
           <li {...spread(props(styles.li))}>
-            <a {...spread(props(styles.listLink))} href="/demo/flower/">
+            <a {...spread(props(styles.listLink))} href="/demo/todolist/">
               Todo List Demo
             </a>
           </li>

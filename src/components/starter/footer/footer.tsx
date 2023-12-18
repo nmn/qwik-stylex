@@ -10,7 +10,7 @@ export default component$(() => {
 
   return (
     <footer>
-      <div {...spread(props(container.base))}>
+      <div {...spread(props(container.base, container.flex))}>
         <a
           {...spread(props(styles.link))}
           href="https://www.builder.io/"

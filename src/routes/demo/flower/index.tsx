@@ -97,7 +97,7 @@ const styles = create({
   label: {
     display: "flex",
     justifyContent: "center",
-    marginTop: -32,
+    // marginTop: -32,
     marginBottom: 32,
     fontSize: "1.5rem",
     gap: ".25em",
