@@ -128,3 +128,55 @@ export const icon = stylex.create({
     },
   },
 });
+
+const sm = "@media (min-width: 640px) and (max-width: 767.9px)";
+const md = "@media (min-width: 768px) and (max-width: 1023.9px)";
+const lg = "@media (min-width: 1024px) and (max-width: 1279.9px)";
+const xl = "@media (min-width: 1280px) and (max-width: 1535.9px)";
+const xxl = "@media (min-width: 1536px)";
+
+export const hyroglyphs = stylex.create({
+  "💪": { diplay: "flex", alignItems: "center", justifyContent: "center" },
+  "↔️": { diplay: "flex", alignItems: "center" },
+  "↕️": { diplay: "flex", flexDirection: "column", justifyContent: "center" },
+  "🙏": { justifyContent: "center" },
+  "🍆": { flexGrow: 1 },
+  "✋": { gap: 4 },
+  "🖐️": { gap: 8 },
+  "🖖": { gap: 12 },
+  "🎯": { alignItems: "center" },
+  "⬜️": { backgroundColor: "rgb(249, 250, 251)" },
+  "⬛️": { backgroundColor: "rgb(17, 24, 39)" },
+  "⭕️": { borderRadius: "50%" },
+  "🙈": { display: "none" },
+  "❶": { padding: 2 },
+  "❷": { padding: 4 },
+  "❸": { padding: 8 },
+  "␣": { justifyContent: "space-between" },
+  "🔳": { color: "rgb(17, 24, 39)" },
+  "⑴": { fontSize: "0.875rem", lineHeight: "1.25rem" },
+  "⑵": { fontSize: "1.125rem", lineHeight: "1.75rem" },
+  "⑶": { fontSize: "1.25rem", lineHeight: "1.75rem" },
+  "⑷": { fontSize: "1.5rem", lineHeight: "2rem" },
+  "🫙": {
+    maxWidth: {
+      default: "100%",
+      [sm]: 640,
+      [md]: 768,
+      [lg]: 1024,
+      [xl]: 1280,
+      [xxl]: 1536,
+    },
+  },
+  "▢": { borderRadius: "0.25rem" },
+  "🥉": {
+    display: "grid",
+    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+  },
+  "👈": { alignSelf: "start", justifySelf: "start" },
+  "👉": { alignSelf: "end", justifySelf: "end" },
+  "👆": { alignSelf: "start", justifySelf: "start" },
+  "👇": { alignSelf: "end", justifySelf: "end" },
+  "🍑": { width: "100%" },
+  "◻️": { color: "rgb(249, 250, 251)" },
+});
