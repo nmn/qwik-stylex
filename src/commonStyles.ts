@@ -64,7 +64,7 @@ export const ellipsis = stylex.create({
     left: { default: -100, [DESKTOP]: 350 },
     width: { default: 400, [DESKTOP]: 1400 },
     height: { default: 400, [DESKTOP]: 800 },
-    background:
+    backgroundImage:
       "radial-gradient(" +
       [
         "57.58% 57.58% at 48.79% 42.42%",
@@ -79,7 +79,7 @@ export const ellipsis = stylex.create({
   purple: {
     top: { default: 1350, [DESKTOP]: 1300 },
     left: { default: -100, [DESKTOP]: -200 },
-    background:
+    backgroundImage:
       "radial-gradient(" +
       [
         "50% 50% at 50% 50%",
@@ -93,7 +93,7 @@ export const ellipsis = stylex.create({
 
 export const heading = stylex.create({
   hightlight: {
-    color: colors.lightBlue,
+    color: "red", //colors.lightBlue,
   },
   bold: {
     fontWeight: "bold",
