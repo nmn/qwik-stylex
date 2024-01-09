@@ -165,46 +165,51 @@ export default function styleXVitePlugin({
 
       const isCompileMode = isProd || isSSR || hasRemix;
 
-      const result = await babel.transformAsync(inputCode, {
-        babelrc: false,
-        filename: id,
-        plugins: [
-          /\.jsx?/.test(path.extname(id))
-            ? flowSyntaxPlugin
-            : typescriptSyntaxPlugin,
-          jsxSyntaxPlugin,
-          [
-            stylexBabelPlugin,
-            {
-              dev: false, // !isProd,
-              unstable_moduleResolution,
-              importSources: stylexImports,
-              runtimeInjection: false, // !isCompileMode,
-              ...options,
-            },
+      try {
+        const result = await babel.transformAsync(inputCode, {
+          babelrc: false,
+          filename: id,
+          plugins: [
+            /\.jsx?/.test(path.extname(id))
+              ? flowSyntaxPlugin
+              : [typescriptSyntaxPlugin, { isTSX: true }],
+            jsxSyntaxPlugin,
+            [
+              stylexBabelPlugin,
+              {
+                dev: false, // !isProd,
+                unstable_moduleResolution,
+                importSources: stylexImports,
+                runtimeInjection: false, // !isCompileMode,
+                ...options,
+              },
+            ],
           ],
-        ],
-      });
+        });
 
-      if (!result) {
-        return;
+        if (!result) {
+          return;
+        }
+
+        const { code, map, metadata } = result;
+
+        if (
+          isCompileMode &&
+          // @ts-ignore
+          metadata?.stylex != null &&
+          // @ts-ignore
+          metadata?.stylex.length > 0
+        ) {
+          // @ts-ignore
+          stylexRules[id] = metadata.stylex;
+          reloadStyleX();
+        }
+
+        return { code: code ?? undefined, map, meta: metadata };
+      } catch (e) {
+        console.log(inputCode);
+        throw e;
       }
-
-      const { code, map, metadata } = result;
-
-      if (
-        isCompileMode &&
-        // @ts-ignore
-        metadata?.stylex != null &&
-        // @ts-ignore
-        metadata?.stylex.length > 0
-      ) {
-        // @ts-ignore
-        stylexRules[id] = metadata.stylex;
-        reloadStyleX();
-      }
-
-      return { code: code ?? undefined, map, meta: metadata };
     },
 
     transformIndexHtml(html, ctx) {

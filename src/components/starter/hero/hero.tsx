@@ -1,3 +1,4 @@
+/* eslint-disable qwik/no-react-props */
 import { component$ } from "@builder.io/qwik";
 import ImgThunder from "~/media/thunder.png?jsx";
 
@@ -12,7 +13,7 @@ export default component$(() => {
       <h1>
         So <span {...spread(props(heading.hightlight))}>fantastic</span>
         <br />
-        to have <span {...spread(props(heading.hightlight))}>StyleX</span> here
+        to have <span className="text-blue-500">StyleX</span> here
       </h1>
       <p {...spread(props(s.p))}>Have fun building your App with Qwik.</p>
       <div {...spread(props(s.buttonGroup))}>
