@@ -1,13 +1,12 @@
 import { component$ } from "@builder.io/qwik";
-import { create, props } from "@stylexjs/stylex";
-import spread from "~/utils/spread";
+import { attrs, create } from "@stylexjs/stylex";
 
 export default component$(({ value = 50 }: { value?: number }) => {
   const safeValue = value < 0 || value > 100 ? 50 : value;
 
   return (
-    <div {...spread(props(s.wrapper))}>
-      <svg viewBox="0 0 120 120" {...spread(props(s.gauge))}>
+    <div {...attrs(s.wrapper)}>
+      <svg viewBox="0 0 120 120" {...attrs(s.gauge)}>
         <defs>
           <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stop-color="#18B6F6" />
@@ -33,7 +32,7 @@ export default component$(({ value = 50 }: { value?: number }) => {
           }, 351.858; fill:none; transform-origin:50% 50%; stroke-linecap:round; stroke:url(#gradient)`}
         ></circle>
       </svg>
-      <span {...spread(props(s.value))}>{safeValue}</span>
+      <span {...attrs(s.value)}>{safeValue}</span>
     </div>
   );
 });

@@ -1,7 +1,6 @@
 import { component$ } from "@builder.io/qwik";
 import { useServerTimeLoader } from "~/routes/layout";
-import { create, props } from "@stylexjs/stylex";
-import spread from "~/utils/spread";
+import { attrs, create } from "@stylexjs/stylex";
 import { container } from "~/commonStyles";
 // import styles from "./footer.module.css";
 
@@ -10,15 +9,15 @@ export default component$(() => {
 
   return (
     <footer>
-      <div {...spread(props(container.base, container.flex))}>
+      <div {...attrs(container.base, container.flex)}>
         <a
-          {...spread(props(styles.link))}
+          {...attrs(styles.link)}
           href="https://www.builder.io/"
           target="_blank"
         >
-          <span {...spread(props(styles.span))}>Made with ♡ by Builder.io</span>
-          <span {...spread(props(styles.spacer))}>|</span>
-          <span {...spread(props(styles.span))}>{serverTime.value.date}</span>
+          <span {...attrs(styles.span)}>Made with ♡ by Builder.io</span>
+          <span {...attrs(styles.spacer)}>|</span>
+          <span {...attrs(styles.span)}>{serverTime.value.date}</span>
         </a>
       </div>
     </footer>

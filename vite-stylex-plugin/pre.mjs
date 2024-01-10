@@ -29,10 +29,7 @@ export default function styleXVitePlugin() {
         ],
       });
 
-      let code = result.code.replaceAll(
-        /{...(_stylex\.props\(.+\))}/g,
-        "{...spread($1)}"
-      );
+      let code = result.code.replaceAll(/_stylex\.props/g, "_stylex.attrs");
 
       // let code = await transformTailwind.default(inputCode);
       code = code.replace("const _styles = _stylex.create({});", "");

@@ -9,7 +9,6 @@ import {
 } from "@builder.io/qwik-city";
 import * as stylex from "@stylexjs/stylex";
 import { button, container, ellipsis } from "~/commonStyles";
-import spread from "~/utils/spread";
 import { colors } from "../../../vars.stylex";
 
 interface ListItem {
@@ -40,21 +39,21 @@ export default component$(() => {
 
   return (
     <>
-      <div {...spread(stylex.props(container.base, container.center))}>
+      <div {...stylex.attrs(container.base, container.center)}>
         <h1>
           <span class="highlight">TODO</span> List
         </h1>
       </div>
 
-      <div {...spread(stylex.props(ellipsis.base))} role="presentation"></div>
+      <div {...stylex.attrs(ellipsis.base)} role="presentation"></div>
 
-      <div {...spread(stylex.props(container.base, container.center))}>
+      <div {...stylex.attrs(container.base, container.center)}>
         {list.value.length === 0 ? (
-          <span {...spread(stylex.props(styles.empty))}>No items found</span>
+          <span {...stylex.attrs(styles.empty)}>No items found</span>
         ) : (
-          <ul {...spread(stylex.props(styles.list))}>
+          <ul {...stylex.attrs(styles.list)}>
             {list.value.map((item, index) => (
-              <li {...spread(stylex.props(styles.li))} key={`items-${index}`}>
+              <li {...stylex.attrs(styles.li)} key={`items-${index}`}>
                 {item.text}
               </li>
             ))}
@@ -62,23 +61,20 @@ export default component$(() => {
         )}
       </div>
 
-      <div {...spread(stylex.props(container.base, container.center))}>
+      <div {...stylex.attrs(container.base, container.center)}>
         <Form action={action} spaReset>
           <input
-            {...spread(stylex.props(styles.input))}
+            {...stylex.attrs(styles.input)}
             type="text"
             name="text"
             required
           />{" "}
-          <button
-            {...spread(stylex.props(button.base, button.dark))}
-            type="submit"
-          >
+          <button {...stylex.attrs(button.base, button.dark)} type="submit">
             Add item
           </button>
         </Form>
 
-        <p {...spread(stylex.props(styles.hint))}>
+        <p {...stylex.attrs(styles.hint)}>
           PS: This little app works even when JavaScript is disabled.
         </p>
       </div>

@@ -5,8 +5,7 @@ import {
   useSignal,
 } from "@builder.io/qwik";
 import { type DocumentHead, useLocation } from "@builder.io/qwik-city";
-import spread from "~/utils/spread";
-import { create, props } from "@stylexjs/stylex";
+import { attrs, create } from "@stylexjs/stylex";
 import { container, ellipsis } from "~/commonStyles";
 import { colors } from "../../../vars.stylex";
 
@@ -30,15 +29,15 @@ export default component$(() => {
   });
 
   return (
-    <div {...spread(props(container.base, container.center))}>
-      <div {...spread(props(ellipsis.base))} role="presentation"></div>
-      <h1 {...spread(props(styles.h1))}>
-        <span {...spread(props(styles.highlight))}>Generate</span> Flowers
+    <div {...attrs(container.base, container.center)}>
+      <div {...attrs(ellipsis.base)} role="presentation"></div>
+      <h1 {...attrs(styles.h1)}>
+        <span {...attrs(styles.highlight)}>Generate</span> Flowers
       </h1>
 
-      <label {...spread(props(styles.label))}>
+      <label {...attrs(styles.label)}>
         <input
-          {...spread(props(styles.checkbox))}
+          {...attrs(styles.checkbox)}
           type="checkbox"
           checked={isPride.value}
           onChange$={(e) => {
@@ -50,7 +49,7 @@ export default component$(() => {
       </label>
 
       <input
-        {...spread(props(styles.input))}
+        {...attrs(styles.input)}
         type="range"
         value={state.number}
         max={50}
@@ -58,15 +57,13 @@ export default component$(() => {
           state.number = (ev.target as HTMLInputElement).valueAsNumber;
         }}
       />
-      <div {...spread(props(styles.host))}>
+      <div {...attrs(styles.host)}>
         {Array.from({ length: state.number }, (_, i) => (
           <div
             key={i}
-            {...spread(
-              props(
-                styles.square(i, state.count),
-                isPride.value && styles.pride(i)
-              )
+            {...attrs(
+              styles.square(i, state.count),
+              isPride.value && styles.pride(i)
             )}
           />
         )).reverse()}

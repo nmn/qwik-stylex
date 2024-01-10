@@ -26,7 +26,7 @@ export default function (opts: RenderToStreamOptions) {
     containerAttributes: {
       lang: "en-us",
       ...opts.containerAttributes,
-      class: stylex(styles.html),
+      ...stylex.attrs(styles.html),
     },
   });
 }

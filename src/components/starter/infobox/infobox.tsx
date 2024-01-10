@@ -1,11 +1,10 @@
 import { Slot, component$ } from "@builder.io/qwik";
-import { create, props } from "@stylexjs/stylex";
-import spread from "~/utils/spread";
+import { attrs, create } from "@stylexjs/stylex";
 
 export default component$(() => {
   return (
-    <div {...spread(props(styles.box))}>
-      <h3 {...spread(props(styles.h3))}>
+    <div {...attrs(styles.box)}>
+      <h3 {...attrs(styles.h3)}>
         <Slot name="title" />
       </h3>
       <Slot />

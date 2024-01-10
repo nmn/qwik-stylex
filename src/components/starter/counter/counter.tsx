@@ -1,7 +1,6 @@
 import { component$, useSignal, $ } from "@builder.io/qwik";
 import Gauge from "../gauge";
-import { create, props } from "@stylexjs/stylex";
-import spread from "~/utils/spread";
+import { attrs, create } from "@stylexjs/stylex";
 import { button } from "~/commonStyles";
 
 export default component$(() => {
@@ -15,16 +14,16 @@ export default component$(() => {
   });
 
   return (
-    <div {...spread(props(s.wrapper))}>
+    <div {...attrs(s.wrapper)}>
       <button
-        {...spread(props(button.base, button.dark))}
+        {...attrs(button.base, button.dark)}
         onClick$={() => setCount(count.value - 1)}
       >
         -
       </button>
       <Gauge value={count.value} />
       <button
-        {...spread(props(button.base, button.dark))}
+        {...attrs(button.base, button.dark)}
         onClick$={() => setCount(count.value + 1)}
       >
         +

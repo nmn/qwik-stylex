@@ -1,45 +1,44 @@
 import { component$ } from "@builder.io/qwik";
 import { QwikLogo } from "../icons/qwik";
-import { create, props } from "@stylexjs/stylex";
+import * as stylex from "@stylexjs/stylex";
 import { colors } from "../../../vars.stylex";
-import spread from "~/utils/spread";
 import { container } from "~/commonStyles";
 
 export default component$(() => {
   return (
     <header>
-      <div {...spread(props(container.base, styles.wrapper))}>
-        <div {...spread(props(styles.logo))}>
-          <a {...spread(props(styles.logoLink))} href="/" title="qwik">
+      <div {...stylex.attrs(container.base, styles.wrapper)}>
+        <div {...stylex.attrs(styles.logo)}>
+          <a {...stylex.attrs(styles.logoLink)} href="/" title="qwik">
             <QwikLogo height={50} width={143} />
           </a>
         </div>
-        <ul {...spread(props(styles.ul))}>
-          <li {...spread(props(styles.li))}>
+        <ul {...stylex.attrs(styles.ul)}>
+          <li {...stylex.attrs(styles.li)}>
             <a
-              {...spread(props(styles.listLink))}
+              {...stylex.attrs(styles.listLink)}
               href="https://qwik.builder.io/docs/components/overview/"
               target="_blank"
             >
               Qwik Docs
             </a>
           </li>
-          <li {...spread(props(styles.li))}>
+          <li {...stylex.attrs(styles.li)}>
             <a
-              {...spread(props(styles.listLink))}
+              {...stylex.attrs(styles.listLink)}
               href="https://stylexjs.com/docs/"
               target="_blank"
             >
               StyleX Docs
             </a>
           </li>
-          <li {...spread(props(styles.li))}>
-            <a {...spread(props(styles.listLink))} href="/demo/flower/">
+          <li {...stylex.attrs(styles.li)}>
+            <a {...stylex.attrs(styles.listLink)} href="/demo/flower/">
               Flower Demo
             </a>
           </li>
-          <li {...spread(props(styles.li))}>
-            <a {...spread(props(styles.listLink))} href="/demo/todolist/">
+          <li {...stylex.attrs(styles.li)}>
+            <a {...stylex.attrs(styles.listLink)} href="/demo/todolist/">
               Todo List Demo
             </a>
           </li>
@@ -51,7 +50,7 @@ export default component$(() => {
 
 const BIG = "@media (min-width: 450px)";
 
-const styles = create({
+const styles = stylex.create({
   wrapper: {
     display: "flex",
     alignItems: "center",

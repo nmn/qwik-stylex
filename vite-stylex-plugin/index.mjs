@@ -177,10 +177,10 @@ export default function styleXVitePlugin({
             [
               stylexBabelPlugin,
               {
-                dev: false, // !isProd,
+                dev: !isProd,
                 unstable_moduleResolution,
                 importSources: stylexImports,
-                runtimeInjection: false, // !isCompileMode,
+                runtimeInjection: !isCompileMode,
                 ...options,
               },
             ],

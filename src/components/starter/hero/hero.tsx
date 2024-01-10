@@ -2,23 +2,22 @@
 import { component$ } from "@builder.io/qwik";
 import ImgThunder from "~/media/thunder.png?jsx";
 
-import { create, props } from "@stylexjs/stylex";
+import { create, attrs } from "@stylexjs/stylex";
 import { button, container, heading } from "~/commonStyles";
-import spread from "~/utils/spread";
 
 export default component$(() => {
   return (
-    <div {...spread(props(container.base, s.hero))}>
-      <ImgThunder {...spread(props(s.img))} />
+    <div {...attrs(container.base, s.hero)}>
+      <ImgThunder {...attrs(s.img)} />
       <h1>
-        So <span {...spread(props(heading.hightlight))}>fantastic</span>
+        So <span {...attrs(heading.hightlight)}>fantastic</span>
         <br />
-        to have <span className="text-blue-500">StyleX</span> here
+        to have <span className="text-pink-500">StyleX</span> here
       </h1>
-      <p {...spread(props(s.p))}>Have fun building your App with Qwik.</p>
-      <div {...spread(props(s.buttonGroup))}>
+      <p {...attrs(s.p)}>Have fun building your App with Qwik.</p>
+      <div {...attrs(s.buttonGroup)}>
         <button
-          {...spread(props(button.base))}
+          {...attrs(button.base)}
           onClick$={async () => {
             const defaults = {
               spread: 360,
@@ -75,7 +74,7 @@ export default component$(() => {
           Time to celebrate
         </button>
         <a
-          {...spread(props(button.base, button.dark))}
+          {...attrs(button.base, button.dark)}
           href="https://qwik.builder.io/docs"
           target="_blank"
         >

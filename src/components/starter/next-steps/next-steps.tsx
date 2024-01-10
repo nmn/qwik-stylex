@@ -1,6 +1,5 @@
 import { component$, $, useOnWindow, useSignal } from "@builder.io/qwik";
-import spread from "~/utils/spread";
-import { create, props } from "@stylexjs/stylex";
+import { attrs, create } from "@stylexjs/stylex";
 import { button, container, heading } from "~/commonStyles";
 import { colors } from "../../../vars.stylex";
 
@@ -47,29 +46,27 @@ export default component$(() => {
 
   return (
     <div
-      {...spread(
-        props(
-          container.base,
-          container.purple,
-          container.center,
-          styles.container
-        )
+      {...attrs(
+        container.base,
+        container.purple,
+        container.center,
+        styles.container
       )}
     >
       <h2>
         Time for a
         <br />
-        <span {...spread(props(heading.bold))}>qwik intro</span>?
+        <span {...attrs(heading.bold)}>qwik intro</span>?
       </h2>
-      <div {...spread(props(styles.gettingstarted))}>
+      <div {...attrs(styles.gettingstarted)}>
         <div
-          {...spread(props(styles.intro))}
+          {...attrs(styles.intro)}
           dangerouslySetInnerHTML={
             GETTING_STARTED_STEPS[gettingStartedStep.value].message
           }
         />
         <span
-          {...spread(props(styles.hint))}
+          {...attrs(styles.hint)}
           dangerouslySetInnerHTML={
             GETTING_STARTED_STEPS[gettingStartedStep.value].hint
           }
@@ -77,7 +74,7 @@ export default component$(() => {
       </div>
       {gettingStartedStep.value + 1 < GETTING_STARTED_STEPS.length ? (
         <button
-          {...spread(props(button.base, button.dark))}
+          {...attrs(button.base, button.dark)}
           onClick$={() => gettingStartedStep.value++}
         >
           Continue with Step {gettingStartedStep.value + 2} of{" "}
@@ -85,7 +82,7 @@ export default component$(() => {
         </button>
       ) : (
         <button
-          {...spread(props(button.base, button.dark))}
+          {...attrs(button.base, button.dark)}
           onClick$={() => (gettingStartedStep.value = 0)}
         >
           Re-Start

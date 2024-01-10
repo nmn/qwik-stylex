@@ -9,7 +9,6 @@ import * as stylex from "@stylexjs/stylex";
 
 import "./global.css";
 import "virtual:stylex.css";
-import spread from "./utils/spread";
 import { colors } from "./vars.stylex";
 
 export default component$(() => {
@@ -28,7 +27,7 @@ export default component$(() => {
         <RouterHead />
         <ServiceWorkerRegister />
       </head>
-      <body {...spread(stylex.props(styles.body))} lang="en">
+      <body {...stylex.attrs(styles.body)} lang="en">
         <RouterOutlet />
       </body>
     </QwikCityProvider>
